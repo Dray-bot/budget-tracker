@@ -36,3 +36,54 @@
     transform: rotate(360deg);
   }
 }
+
+/* Glassmorphism effect for chart container */
+.chart-container {
+  background: rgba(255, 255, 255, 0.1); /* Transparent white background */
+
+  border-radius: 10px;
+  padding: 20px;
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.2); /* Soft shadow for depth */
+  color: #fff; /* Ensuring text is visible on the frosted background */
+}
+
+/* Neon hover effect for interactive elements */
+.neon-hover:hover {
+  color: #EAB308; /* Neon Gold color on hover */
+  text-shadow: 0 0 10px #EAB308, 0 0 20px #EAB308, 0 0 30px #EAB308;
+  transition: all 0.3s ease-in-out; /* Smooth transition for the glowing effect */
+}
+
+/* Additional styling for a smooth user experience */
+h2, p, button {
+  font-family: 'Arial', sans-serif; /* Clean and modern font */
+}
+
+/* Making sure buttons look appealing */
+button {
+  background-color: #059669; /* Primary color */
+  color: white;
+  padding: 10px 15px;
+  border-radius: 5px;
+  border: none;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+button:hover {
+  background-color: #EAB308; /* Hover effect for buttons */
+  box-shadow: 0 0 10px #EAB308;
+}
+
+/* Making chart more visually appealing */
+canvas {
+  border-radius: 8px; /* Smooth edges for charts */
+  box-shadow: 0 0 15px rgba(0, 0, 0, 0.2); /* Adding shadow for depth */
+}
+
+/* Responsive layout tweaks */
+@media (max-width: 768px) {
+  .chart-container {
+    padding: 15px;
+  }
+}
