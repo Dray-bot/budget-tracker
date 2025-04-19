@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 
-function ExpenseForm({ setExpenses }) {
+function ExpenseForm({ onAddExpense }) {  // Fixed prop name to match the parent
   const [expenseData, setExpenseData] = useState({
     amount: "",
     category: "",
@@ -9,17 +9,35 @@ function ExpenseForm({ setExpenses }) {
 
   // Handle form submission
   const handleFormSubmit = (event) => {
-    event.preventDefault(); // Prevent the page from refreshing
-    setExpenses((previousExpenses) => [...previousExpenses, expenseData]); // Add new expense
-    setExpenseData({ amount: "", category: "", description: "" }); // Clear the form
+    event.preventDefault();
+
+    const parsedAmount = parseFloat(expenseData.amount);
+
+    // Basic validation
+    if (
+      isNaN(parsedAmount) ||
+      expenseData.category.trim() === ""
+    ) {
+      alert("Please enter a valid amount and category.");
+      return;
+    }
+
+    // Add the new expense
+    onAddExpense({  // Call the function passed from the parent (App.js)
+      ...expenseData,
+      amount: parsedAmount,
+    });
+
+    // Reset form
+    setExpenseData({ amount: "", category: "", description: "" });
   };
 
   return (
     <div className="bg-white p-6 rounded-lg shadow-md mt-6 border border-green-100">
       <h2 className="text-2xl font-bold text-green-700 mb-6">Add Expense</h2>
 
-      <form onSubmit={handleFormSubmit}>
-        {/* Input for expense amount */}
+      <form onSubmit={handleFormSubmit} className="space-y-4">
+        {/* Amount Input */}
         <div>
           <label className="block text-green-700 font-medium mb-2">Amount</label>
           <input
@@ -33,7 +51,7 @@ function ExpenseForm({ setExpenses }) {
           />
         </div>
 
-        {/* Input for expense category */}
+        {/* Category Input */}
         <div>
           <label className="block text-green-700 font-medium mb-2">Category</label>
           <input
@@ -48,7 +66,7 @@ function ExpenseForm({ setExpenses }) {
           />
         </div>
 
-        {/* Input for expense description */}
+        {/* Description Input */}
         <div>
           <label className="block text-green-700 font-medium mb-2">Description</label>
           <input
@@ -62,10 +80,10 @@ function ExpenseForm({ setExpenses }) {
           />
         </div>
 
-        {/* Submit button */}
+        {/* Submit Button */}
         <button
           type="submit"
-          className="w-full bg-green-600 text-white font-semibold p-3 rounded-md mt-4 hover:bg-green-700 transition"
+          className="w-full bg-green-600 text-white font-semibold p-3 rounded-md mt-2 hover:bg-green-700 transition"
         >
           Add Expense
         </button>

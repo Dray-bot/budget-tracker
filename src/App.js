@@ -3,12 +3,12 @@ import IncomeForm from "./components/IncomeForm";
 import ExpenseForm from "./components/ExpenseForm";
 import ExpenseList from "./components/ExpenseList";
 import Chart from "./components/Chart";
-import UserProfileForm from "./components/UserProfileForm"; // Added for user profile
-import ProfileSummary from "./components/ProfileSummary"; // Added for profile summary
+import UserProfileForm from "./components/UserProfileForm";
+import ProfileSummary from "./components/ProfileSummary";
 
 function App() {
-  const [income, setIncome] = useState(0); // To keep track of income
-  const [expenses, setExpenses] = useState([]); // To keep track of expenses
+  const [income, setIncome] = useState(0);
+  const [expenses, setExpenses] = useState([]);
   const [userProfile, setUserProfile] = useState({
     name: "",
     budgetGoal: 0,
@@ -16,20 +16,17 @@ function App() {
     notifications: true,
   });
 
-  // Calculate total expenses
   const totalExpenses = expenses.reduce((sum, expense) => sum + Number(expense.amount), 0);
-  
-  // Calculate the balance (income minus expenses)
   const balance = income - totalExpenses;
 
-  // Function to add income
+  // Add income
   const handleAddIncome = (amount) => {
-    setIncome((prev) => prev + Number(amount)); // Add the new income to the previous total
+    setIncome((prev) => prev + Number(amount));
   };
 
-  // Function to handle adding expense
+  // Add expense
   const handleAddExpense = (expense) => {
-    setExpenses((prevExpenses) => [...prevExpenses, expense]); // Add new expense to the list
+    setExpenses((prevExpenses) => [...prevExpenses, expense]);
   };
 
   return (
@@ -44,7 +41,7 @@ function App() {
       {/* Profile Summary */}
       <ProfileSummary userProfile={userProfile} />
 
-      {/* Income, Expenses, and Balance Summary */}
+      {/* Income, Expenses, Balance Summary */}
       <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
         <div className="bg-white p-4 rounded-lg shadow-md border-l-4 border-green-500">
           <h2 className="text-lg font-semibold text-green-700">Income</h2>
@@ -62,14 +59,14 @@ function App() {
 
       {/* Income Form */}
       <IncomeForm setIncome={handleAddIncome} />
-      
-      {/* Expense Form */}
-      <ExpenseForm setExpenses={handleAddExpense} />
 
-      {/* List of Expenses */}
+      {/* Expense Form - ✅ Pass correct prop */}
+      <ExpenseForm onAddExpense={handleAddExpense} />
+
+      {/* Expense List */}
       <ExpenseList expenses={expenses} />
 
-      {/* Chart showing expenses and balance */}
+      {/* Chart */}
       <div className="mt-6 bg-white p-4 rounded-lg shadow-md">
         <Chart income={income} expenses={expenses} />
       </div>
